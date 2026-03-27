@@ -79,15 +79,20 @@
     .hero-inner {
       max-width: 1160px; margin: 0 auto; position: relative;
       display: grid;
-      grid-template-columns: 52% 1fr;
+      grid-template-columns: 48% 1fr;
       gap: 40px;
       align-items: start;
     }
     .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 4px;
+    }
+    .charts-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      padding-top: 4px;
     }
     .hero-chart-card {
       background: rgba(255,255,255,.04);
@@ -105,6 +110,143 @@
       padding-bottom: 8px;
       border-bottom: 1px solid rgba(255,255,255,.07);
     }
+
+    /* AI TIMELINE */
+    .ai-timeline-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .ai-timeline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .ai-timeline-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+    }
+    .ai-badge {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      background: rgba(61,107,255,.2);
+      border: 1px solid rgba(61,107,255,.35);
+      color: var(--accent);
+      border-radius: var(--radius);
+    }
+    .timeline-nodes {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .tl-node {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 10px;
+      cursor: pointer;
+      border-radius: var(--radius);
+      transition: background .15s;
+      position: relative;
+    }
+    .tl-node:hover { background: rgba(255,255,255,.05); }
+    .tl-node.active { background: rgba(61,107,255,.1); border: 1px solid rgba(61,107,255,.2); }
+    .tl-spine {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      flex-shrink: 0;
+      padding-top: 3px;
+    }
+    .tl-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      transition: background .15s, border-color .15s;
+      flex-shrink: 0;
+    }
+    .tl-node:hover .tl-dot,
+    .tl-node.active .tl-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .tl-line {
+      width: 1px;
+      flex: 1;
+      min-height: 24px;
+      background: rgba(255,255,255,.07);
+      margin-top: 3px;
+    }
+    .tl-node:last-child .tl-line { display: none; }
+    .tl-content { flex: 1; min-width: 0; }
+    .tl-period {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 1px;
+    }
+    .tl-org {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,.75);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tl-role {
+      font-size: 10px;
+      color: rgba(255,255,255,.35);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tl-hint {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: rgba(255,255,255,.2);
+      text-align: center;
+      margin-top: 10px;
+      letter-spacing: 0.08em;
+    }
+    .ai-response {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(0,0,0,.2);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.6);
+      min-height: 64px;
+      display: none;
+      font-family: var(--sans);
+      font-weight: 300;
+    }
+    .ai-response.visible { display: block; }
+    .ai-response.loading { color: rgba(255,255,255,.25); font-family: var(--mono); font-size: 11px; }
+    .ai-cursor {
+      display: inline-block;
+      width: 6px; height: 12px;
+      background: var(--accent);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink .7s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
     .hero-prompt { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
     .hero-prompt::before { content: '$'; color: var(--muted2); }
     .hero-name { font-family: var(--mono); font-size: clamp(34px, 3.8vw, 58px); font-weight: 600; color: #fff; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 8px; }
@@ -244,7 +386,7 @@
 <nav>
   <div class="nav-brand">
     <div class="nav-dot"></div>
-    <span class="nav-name">michael_warren<span>.tech</span></span>
+    <span class="nav-name">mikewarren<span>.tech</span></span>
   </div>
   <ul class="nav-links">
     <li><a href="#home">~/home</a></li>
@@ -275,13 +417,15 @@
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-chart-card">
-        <p class="hero-chart-label">// Tech Experience (yrs)</p>
-        <canvas id="barChart" height="260"></canvas>
-      </div>
-      <div class="hero-chart-card">
-        <p class="hero-chart-label">// Role Distribution</p>
-        <canvas id="pieChart" height="260"></canvas>
+      <div class="charts-row">
+        <div class="hero-chart-card">
+          <p class="hero-chart-label">// Tech Experience (yrs)</p>
+          <canvas id="barChart" height="200"></canvas>
+        </div>
+        <div class="hero-chart-card">
+          <p class="hero-chart-label">// Role Distribution</p>
+          <canvas id="pieChart" height="200"></canvas>
+        </div>
       </div>
     </div>
   </div>
@@ -573,4 +717,19 @@
         x: {
           max: 22,
           grid: { color: 'rgba(255,255,255,.06)' },
-          ticks: { font: { family: C.mono, size:
+          ticks: { font: { family: C.mono, size: 10 }, color: 'rgba(255,255,255,.3)', callback: v => v + 'y' },
+          border: { color: 'rgba(255,255,255,.08)' }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { font: { family: C.mono, size: 10 }, color: 'rgba(255,255,255,.5)' },
+          border: { color: 'rgba(255,255,255,.08)' }
+        }
+      }
+    }
+  });
+
+
+</script>
+</body>
+</html>
